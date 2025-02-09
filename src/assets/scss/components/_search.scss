@@ -1,0 +1,17 @@
+.search {
+  &__wrapper {
+    margin-bottom: 2rem;
+  }
+
+  &__input {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid $colour-light-gray;
+    border-radius: $primary-border-radius;
+    outline: none;
+
+    &::placeholder {
+      color: $colour-light-gray;
+    }
+  }
+}

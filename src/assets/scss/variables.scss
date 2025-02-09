@@ -1,0 +1,46 @@
+// Mixins
+@mixin small {
+  @media (max-width: 768px) {
+    @content;
+  }
+}
+
+@mixin medium {
+  @media (max-width: 1200px) {
+    @content;
+  }
+}
+
+// Variables
+$max-width-small: 145rem !default;
+$max-width-full: 192rem !default;
+
+// Border
+$primary-border-radius: .5rem !default;
+
+// Main colours
+$colour-black: #161616 !default;
+$colour-white: #fff !default;
+$colour-light-gray: #dadada !default;
+$colour-offwhite: #E8F1F2 !default;
+$colour-red: #bb0e0e !default;
+
+// Theme colours
+$colour-primary: #A491D3 !default;
+$colour-secondary: #BFEDC1 !default;
+
+.max--width--small {
+  width: 100%;
+  max-width: $max-width-small;
+  margin: 0 auto;
+  padding: 0 3rem;
+
+  @include small {
+    padding: 0 1rem;
+  }
+}
+
+.max--width--full {
+  width: 100%;
+  max-width: $max-width-full;
+}

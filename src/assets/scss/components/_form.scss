@@ -1,0 +1,20 @@
+form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem 1rem;
+
+  label {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    font-size: 1.4rem;
+
+    input {
+      width: 100%;
+      padding: .5rem;
+      border: 1px solid $colour-light-gray;
+      border-radius: $primary-border-radius;
+      outline: none;
+    }
+  }
+}

@@ -1,0 +1,20 @@
+.container {
+  padding: 6rem;
+  background-color: $colour-white;
+  border-radius: $primary-border-radius;
+  box-shadow: 4px 4px 40px rgba(0 0 0 / 0.1);
+
+  @include small {
+    padding: 2rem;
+  }
+
+  &__head {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 2rem;
+  }
+}

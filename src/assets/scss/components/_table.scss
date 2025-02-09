@@ -1,0 +1,66 @@
+.table {
+  &__container {
+    margin: 0 auto;
+  }
+
+  &__wrapper {
+    width: 100%;
+    overflow: auto;
+    cursor: grab;
+    user-select: none;
+
+    &:active {
+      cursor: grabbing;
+    }
+  }
+}
+
+table {
+  border-collapse: collapse;
+
+  thead {
+    tr {
+      border-bottom: 1px solid $colour-light-gray;
+    }
+  }
+
+  tbody {
+    tr {
+      border-bottom: 1px solid $colour-light-gray;
+      transition: all .2s ease-in-out;
+
+      &:hover {
+        background-color: $colour-offwhite;
+      }
+
+      &:first-of-type {
+        td {
+          padding-top: 3rem;
+        }
+      }
+    }
+  }
+
+  th,
+  td {
+    padding: 2rem;
+    text-align: left;
+    white-space: nowrap;
+
+    svg {
+      width: 1.8rem;
+      height: 1.8rem;
+      color: $colour-light-gray;
+      transition: all .2s ease-in-out;
+      cursor: pointer;
+
+      &:hover {
+        color: $colour-red;
+      }
+
+      &:not(:last-of-type) {
+        margin-right: 1rem;
+      }
+    }
+  }
+}
