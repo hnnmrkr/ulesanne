@@ -3,7 +3,7 @@
 - Node.js v18.14.0 või uuem
 
 ### Installeerimine ja seadistamine
-- Klooni repositoorium `git clone <repositooriumi-url>`
+- Klooni repositoorium `git clone https://github.com/hnnmrkr/ulesanne.git`
 - Paigalda sõltuvused `npm install`
 - Käivita projekt `npm start`
 
