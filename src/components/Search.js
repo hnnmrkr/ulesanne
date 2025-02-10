@@ -13,7 +13,7 @@ export const Search = ({ onSearch }) => {
       <input
         className="search__input"
         type="text"
-        placeholder="Search by name"
+        placeholder="Search by name or username"
         value={query}
         onChange={handleChange}
       />

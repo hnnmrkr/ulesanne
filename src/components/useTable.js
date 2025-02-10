@@ -12,18 +12,22 @@ export const useTable = (searchQuery) => {
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
   const tableWrapperRef = useRef(null);
+  const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const isValidWebsite = (website) => /^(https?:\/\/)?[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(website);
 
   useEffect(() => {
     const storedUsers = getUsersFromLocalStorage();
-    if (storedUsers.length === 0) {
+  
+    if (!storedUsers || storedUsers.length === 0) {
       saveUsers(mockData);
       setUsers(mockData);
+      setFilteredUsers(mockData);
     } else {
       setUsers(storedUsers);
+      setFilteredUsers(storedUsers);
     }
   }, []);
-
-
+  
   useEffect(() => {
     if (!searchQuery) {
       setFilteredUsers(users);
@@ -56,16 +60,34 @@ export const useTable = (searchQuery) => {
   const toggleModal = () => setShowModal(!showModal);
 
   const deleteUser = (userId) => {
-    const updatedUsers = users.filter(user => user.id !== userId);
-    setUsers(updatedUsers);
-    saveUsers(updatedUsers);
+    const confirmDelete = window.confirm("Are you sure you want to delete this user?");
+    if (confirmDelete) {
+      const updatedUsers = users.filter(user => user.id !== userId);
+      setUsers(updatedUsers);
+      setFilteredUsers(updatedUsers);
+      saveUsers(updatedUsers);
+    }
   };
+  
+  
 
   const editUser = (userId) => {
     setEditableRowId(userId);
   };
 
   const saveEdit = (userId, updatedUser) => {
+    const { email, website } = updatedUser;
+  
+    if (email && !isValidEmail(email)) {
+      alert("Please enter a valid email address.");
+      return;
+    }
+  
+    if (website && !isValidWebsite(website)) {
+      alert("Please enter a valid website address.");
+      return;
+    }
+  
     const updatedUsers = users.map(user =>
       user.id === userId ? updatedUser : user
     );
@@ -73,25 +95,51 @@ export const useTable = (searchQuery) => {
     saveUsers(updatedUsers);
     setEditableRowId(null);
   };
+  
 
   const onInputChange = (e, field, userId) => {
     const updatedUsers = users.map(user => {
       if (user.id === userId) {
-        if (field === "company.name") {
+        if (field === "lat" || field === "lng") {
+          return {
+            ...user,
+            address: {
+              ...user.address,
+              geo: {
+                ...user.address.geo,
+                [field]: e.target.value,
+              },
+            },
+          };
+        }
+  
+        if (field === "company.catchPhrase") {
           return {
             ...user,
             company: {
               ...user.company,
-              name: e.target.value,
+              catchPhrase: e.target.value,
             },
           };
         }
+
+        if (field === "company.bs") {
+          return {
+            ...user,
+            company: {
+              ...user.company,
+              bs: e.target.value,
+            },
+          };
+        }
+  
         return { ...user, [field]: e.target.value };
       }
       return user;
     });
+  
     setUsers(updatedUsers);
-  };
+  };  
 
   const handleKeyDown = (e, userId) => {
     if (e.key === "Enter") {
@@ -104,12 +152,19 @@ export const useTable = (searchQuery) => {
     }
   };
 
+  const formatAddress = (address) => {
+    if (!address) return "";
+    const { street, suite, city, zipcode } = address;
+    return [street, suite, city, zipcode].filter(Boolean).join(", ");
+  };  
+
   return {
     users,
     filteredUsers,
     showModal,
     editableRowId,
     tableWrapperRef,
+    setUsers,
     mouseDown,
     mouseMove,
     mouseUpOrLeave,
@@ -119,5 +174,6 @@ export const useTable = (searchQuery) => {
     saveEdit,
     onInputChange,
     handleKeyDown,
+    formatAddress
   };
 };

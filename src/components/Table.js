@@ -1,18 +1,19 @@
-import { Title } from "../components/Title";
-import { useTable } from "./useTable"
-import { Modal } from "../components/Modal";
 import { Trash, Edit, Check } from 'react-feather';
-import { Button } from "../components/Button";
+
+import { Title } from "./Title";
+import { useTable } from "./useTable"
+import { Modal } from "./Modal";
+import { Button } from "./Button";
 
 export const Table = ({ searchQuery }) => {
   
   const {
     users,
-    setUsers,
     filteredUsers,
     showModal,
     editableRowId,
     tableWrapperRef,
+    setUsers,
     mouseDown,
     mouseMove,
     mouseUpOrLeave,
@@ -22,13 +23,14 @@ export const Table = ({ searchQuery }) => {
     saveEdit,
     onInputChange,
     handleKeyDown,
+    formatAddress
   } = useTable(searchQuery);
 
   return (
     <>
       <div className="container__head">
         <Title text="Users" />
-        <Button onClick={toggleModal} text={showModal ? "Close modal" : "Add new user"} />
+        <Button onClick={toggleModal} text={showModal ? "Close" : "Add new user"} />
         {showModal && <Modal setUsers={setUsers} users={users} toggleModal={toggleModal} />}
       </div>
 
@@ -47,10 +49,13 @@ export const Table = ({ searchQuery }) => {
               <th>Name</th>
               <th>Username</th>
               <th>Email</th>
-              <th>Address</th>
               <th>Phone</th>
+              <th>Website</th>
+              <th>Address</th>
+              <th>Latitude and longitude</th>
               <th>Company</th>
-              <th>Catch Phrase</th>
+              <th>Catchphrase</th>
+              <th>BS</th>
               <th></th>
             </tr>
           </thead>
@@ -63,10 +68,11 @@ export const Table = ({ searchQuery }) => {
                     <input
                       type="text"
                       value={user.name}
+                      placeholder="Name"
                       onChange={(e) => onInputChange(e, 'name', user.id)}
                     />
                   ) : (
-                    user.name
+                    user.name ? user.name : "-"
                   )}
                 </td>
                 <td>
@@ -74,43 +80,82 @@ export const Table = ({ searchQuery }) => {
                     <input
                       type="text"
                       value={user.username}
+                      placeholder="Username"
                       onChange={(e) => onInputChange(e, 'username', user.id)}
                     />
                   ) : (
-                    user.username
+                    user.username ? user.username : "-"
                   )}
                 </td>
                 <td>
                   {editableRowId === user.id ? (
                     <input
-                      type="text"
+                      type="email"
                       value={user.email}
+                      placeholder="E-mail"
                       onChange={(e) => onInputChange(e, 'email', user.id)}
                     />
                   ) : (
-                    user.email
+                    user.email ? user.email : "-"
                   )}
                 </td>
                 <td>
                   {editableRowId === user.id ? (
                     <input
-                      type="text"
-                      value={`${user.address.street}, ${user.address.suite}, ${user.address.city}, ${user.address.zipcode}`}
-                      onChange={(e) => onInputChange(e, 'address', user.id)}
-                    />
-                  ) : (
-                    `${user.address.street}, ${user.address.suite}, ${user.address.city}, ${user.address.zipcode}`
-                  )}
-                </td>
-                <td>
-                  {editableRowId === user.id ? (
-                    <input
-                      type="text"
+                      type="phone"
                       value={user.phone}
+                      placeholder="Phone"
                       onChange={(e) => onInputChange(e, 'phone', user.id)}
                     />
                   ) : (
-                    user.phone
+                    user.phone ? user.phone : "-"
+                  )}
+                </td>
+                <td>
+                  {editableRowId === user.id ? (
+                    <input
+                      type="text"
+                      value={user.website}
+                      placeholder="Website"
+                      onChange={(e) => onInputChange(e, 'website', user.id)}
+                    />
+                  ) : (
+                    user.website
+                  )}
+                </td>
+                <td>
+                  {editableRowId === user.id ? (
+                    <input
+                      type="text"
+                      value={formatAddress(user.address)}
+                      placeholder="Address, suite, city, zipcode"
+                      onChange={(e) => onInputChange(e, "address", user.id)}
+                    />
+                  ) : (
+                    formatAddress(user.address) || "-"
+                  )}
+                </td>
+                <td>
+                  {editableRowId === user.id ? (
+                    <>
+                      <input
+                        type="text"
+                        value={user.address?.geo?.lat || ""}
+                        placeholder="Latitude"
+                        onChange={(e) => onInputChange(e, "lat", user.id)}
+                      />
+                      ,  
+                      <input
+                        type="text"
+                        value={user.address?.geo?.lng || ""}
+                        placeholder="Longitude"
+                        onChange={(e) => onInputChange(e, "lng", user.id)}
+                      />
+                    </>
+                  ) : (
+                    user.address?.geo?.lat && user.address?.geo?.lng
+                      ? `${user.address.geo.lat}, ${user.address.geo.lng}`
+                      : "-"
                   )}
                 </td>
                 <td>
@@ -118,10 +163,11 @@ export const Table = ({ searchQuery }) => {
                     <input
                       type="text"
                       value={user.company.name}
+                      placeholder="Company name"
                       onChange={(e) => onInputChange(e, 'company.name', user.id)}
                     />
                   ) : (
-                    user.company.name
+                    user.company.name ? user.company.name : "-"
                   )}
                 </td>
                 <td>
@@ -129,10 +175,23 @@ export const Table = ({ searchQuery }) => {
                     <input
                       type="text"
                       value={user.company.catchPhrase}
+                      placeholder="Catchphrase"
                       onChange={(e) => onInputChange(e, 'company.catchPhrase', user.id)}
                     />
                   ) : (
-                    user.company.catchPhrase
+                    user.company.catchPhrase ? user.company.catchPhrase : "-"
+                  )}
+                </td>
+                <td>
+                  {editableRowId === user.id ? (
+                    <input
+                      type="text"
+                      value={user.company.bs}
+                      placeholder="BS"
+                      onChange={(e) => onInputChange(e, 'company.bs', user.id)}
+                    />
+                  ) : (
+                    user.company.bs ? user.company.bs : "-"
                   )}
                 </td>
                 <td>

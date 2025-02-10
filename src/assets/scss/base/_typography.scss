@@ -1,0 +1,22 @@
+body {
+  color: $colour-black;
+  font-family: $font-body;
+}
+
+h1,
+h2,
+h3 {
+  margin-bottom: 2rem;
+}
+
+h1 {
+  font-size: 3rem;
+
+  @include small {
+    font-size: 2rem;
+  }
+}
+
+h2 {
+  font-size: 2.5rem;
+}

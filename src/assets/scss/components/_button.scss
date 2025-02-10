@@ -1,9 +1,15 @@
 .button {
+  width: fit-content;
   padding: 1.5rem 3rem;
   font-size: 1.4rem;
   border: none;
   border-radius: 3rem;
   cursor: pointer;
+
+  &:focus,
+  &:active {
+    outline: none;
+  }
 
   &--gradient {
     font-weight: 500;

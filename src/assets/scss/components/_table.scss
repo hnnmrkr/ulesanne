@@ -8,6 +8,7 @@
     overflow: auto;
     cursor: grab;
     user-select: none;
+    scrollbar-width: thin;
 
     &:active {
       cursor: grabbing;
@@ -44,7 +45,7 @@ table {
   th,
   td {
     padding: 2rem;
-    text-align: left;
+    text-align: center;
     white-space: nowrap;
 
     svg {
@@ -55,11 +56,22 @@ table {
       cursor: pointer;
 
       &:hover {
-        color: $colour-red;
+        color: $colour-black;
       }
 
       &:not(:last-of-type) {
-        margin-right: 1rem;
+        margin-right: 2rem;
+      }
+    }
+
+    input {
+      padding: 1rem;
+      border: 1px solid $colour-light-gray;
+      border-radius: $primary-border-radius;
+      outline: none;
+
+      &::placeholder {
+        color: $colour-light-gray;
       }
     }
   }

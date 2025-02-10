@@ -1,0 +1,32 @@
+// Breakpoints
+$small: 700px !default;
+$medium: 1000px !default;
+$larger: 1920px !default;
+
+$breakpoints: (
+  'small': $small,
+  'medium': $medium,
+  'large': $larger,
+);
+
+// Font families
+$font-body: 'Roboto', sans-serif !default;
+$font-heading: 'Roboto', sans-serif !default;
+
+// Variables
+$max-width-small: 145rem !default;
+$max-width-full: 192rem !default;
+
+// Border
+$primary-border-radius: .5rem !default;
+
+// Main colours
+$colour-black: #161616 !default;
+$colour-white: #fff !default;
+$colour-light-gray: #dadada !default;
+$colour-offwhite: #f8f6fa !default;
+$colour-red: #bb0e0e !default;
+
+// Theme colours
+$colour-primary: #A491D3 !default;
+$colour-secondary: #BFEDC1 !default;

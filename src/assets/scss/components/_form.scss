@@ -1,20 +1,43 @@
-form {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2rem 1rem;
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 
-  label {
-    display: flex;
-    flex-direction: column;
-    gap: .5rem;
-    font-size: 1.4rem;
+  &__row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
 
-    input {
-      width: 100%;
-      padding: .5rem;
-      border: 1px solid $colour-light-gray;
-      border-radius: $primary-border-radius;
-      outline: none;
+    h3 {
+      grid-column: span 2;
+      margin: 1rem 0;
     }
+
+    label {
+      display: flex;
+      flex-direction: column;
+      gap: .5rem;
+      font-size: 1.4rem;
+
+      @include small {
+        font-size: 1.2rem;
+      }
+  
+      input {
+        width: 100%;
+        padding: .5rem;
+        border: 1px solid $colour-light-gray;
+        border-radius: $primary-border-radius;
+        outline: none;
+
+        &.form__error {
+          border-color: $colour-red;
+        }
+      }
+    }
+  }
+
+  &__error {
+    color: $colour-red;
   }
 }

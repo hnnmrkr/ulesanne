@@ -1,8 +1,12 @@
-// Variables
-@import './variables.scss';
+// Abstracts
+@import './abstracts/mixins';
+@import './abstracts/variables';
+
+// Base
+@import './base/base';
+@import './base/typography';
 
 // Layout
-@import './layout/global';
 @import './layout/page';
 @import './layout/container';
 

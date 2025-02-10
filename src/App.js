@@ -1,4 +1,3 @@
-import './assets/scss/main.scss';
 import { Home } from './pages/Home';
 
 export const App = () => {
