@@ -1,6 +1,5 @@
 import { useModal } from './useModal';
 import { Button } from './Button';
-import { Title } from './Title';
  
 export const Modal = ({ toggleModal, setUsers, users }) => {
   const { newUser, formErrors, onInputChange, onSubmit } = useModal({ toggleModal, setUsers, users });
