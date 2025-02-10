@@ -120,7 +120,7 @@ export const Table = ({ searchQuery }) => {
                       onChange={(e) => onInputChange(e, 'website', user.id)}
                     />
                   ) : (
-                    user.website
+                    user.website ? user.website : "-"
                   )}
                 </td>
                 <td>
